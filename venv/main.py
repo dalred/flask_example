@@ -17,7 +17,5 @@ def index():
     else:
         return 'Приложение не работает'
 
-
-print(read_json("settings.json")['online'])
 if __name__ == "__main__":
     app.run('127.0.0.1',8000)
