@@ -16,6 +16,18 @@ def index():
         return 'Приложение работает'
     else:
         return 'Приложение не работает'
+@app.route('/candidate/<int:x>/')
+def candidat(x):
+    data = read_json("candidates.json")
+    id_lst = [i['id'] for i in data]
+    if x not in id_lst:
+        return ('Кандидат не найден!')
+    else:
+        data=data[x - 1]
+        return f"<h1>{data['name']}</h1>" \
+               f"<p>{data['position']}</p>" \
+               f'<img src="{data["picture"]}" width=200/>' \
+                                     f'<p>{data["skills"]}</p>'
 
 if __name__ == "__main__":
     app.run('127.0.0.1',8000)
