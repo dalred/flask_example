@@ -1,7 +1,7 @@
 from flask import Flask, request
 
 app = Flask(__name__)
-#Тест
+#Тест3
 
 @app.route('/')
 def hello():
