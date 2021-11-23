@@ -32,6 +32,13 @@ def candidat(x):
                f"<img src='{data['picture']}' width=200/>" \
                f"<p>{data['skills']}</p>"
 
+@app.route('/list/')
+def allcandidat():
+    html = '<h1>Все кандидаты</h1>'
+    data = read_json("candidates.json")
+    for item in data:
+        html += f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>"
+    return html
 
 if __name__ == "__main__":
     app.run('127.0.0.1', 8000)
