@@ -1,12 +1,23 @@
+import json, os
 from flask import Flask, request
 
+
 app = Flask(__name__)
-#Тест4
+
+def read_json(name):
+  data = {}
+  with open(name, "r", encoding = 'utf-8') as file:
+        data = json.load(file)
+  return data
 
 @app.route('/')
-def hello():
-    search = request.args['search']
-    return f'Ищем {search}'
+def index():
+    if read_json("settings.json")['online']:
+        return 'Приложение работает'
+    else:
+        return 'Приложение не работает'
 
 
-app.run()
+print(read_json("settings.json")['online'])
+if __name__ == "__main__":
+    app.run('127.0.0.1',8000)
