@@ -62,6 +62,7 @@ def searching():
 
 #Если под лимитом подрузамевалось взятие всех данных и отсечка по лимиту, то можно использовать срезы
 # return "".join(html[:limit])
+# Тестовый пуш
 @app.route('/skill/<search>')
 def skill(search):
     html=[]
