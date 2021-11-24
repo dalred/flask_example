@@ -3,7 +3,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-
+#Функция для считывания JSON
 def read_json(name):
     data = {}
     with open(name, "r", encoding='utf-8') as file:
@@ -38,6 +38,26 @@ def allcandidat():
     data = read_json("candidates.json")
     for item in data:
         html += f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>"
+    return html
+
+#C регуляркой не делал специально
+@app.route('/search')
+def hello():
+    k = 0
+    html=''
+    search = request.args.get("name")
+    data = read_json("candidates.json")
+    case_sensetive = read_json("settings.json")['case-sensitive']
+    for item in data:
+        if case_sensetive:
+            if search in item['name']:
+                k += 1
+                html += f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>"
+        else:
+            if search.lower() in item['name'].lower():
+                k += 1
+                html += f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>"
+    html = f'<h1>найдено кандидатов {k}</h1>' + html
     return html
 
 if __name__ == "__main__":
