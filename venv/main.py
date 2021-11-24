@@ -42,7 +42,7 @@ def allcandidat():
 
 #C регуляркой не делал специально
 @app.route('/search')
-def hello():
+def searching():
     k = 0
     html=''
     search = request.args.get("name")
@@ -59,6 +59,17 @@ def hello():
                 html += f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>"
     html = f'<h1>найдено кандидатов {k}</h1>' + html
     return html
+
+@app.route('/skill/<search>')
+def skill(search):
+    html=[]
+    data = read_json("candidates.json")
+    limit = read_json("settings.json")['limit']
+    for item in data:
+        if search.lower() in item['skills'].lower().split(', '):
+            html.append(f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>")
+        if len(html) == limit:
+            return "".join(html)
 
 if __name__ == "__main__":
     app.run('127.0.0.1', 8000)
