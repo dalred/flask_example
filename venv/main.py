@@ -50,7 +50,7 @@ def searching():
     case_sensetive = read_json("settings.json")['case-sensitive']
     for item in data:
         if case_sensetive:
-            if search in item['name']:
+            if search.lower() in item['name']:
                 k += 1
                 html += f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>"
         else:
