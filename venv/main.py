@@ -60,6 +60,8 @@ def searching():
     html = f'<h1>найдено кандидатов {k}</h1>' + html
     return html
 
+#Если под лимитом подрузамевалось взятие всех данных и отсечка по лимиту, то можно использовать срезы
+# return "".join(html[:limit])
 @app.route('/skill/<search>')
 def skill(search):
     html=[]
@@ -70,6 +72,9 @@ def skill(search):
             html.append(f"<p><a href='/candidate/{item['id']}'>{item['name']}</a></p>")
         if len(html) == limit:
             return "".join(html)
+    if len(html)==0:
+        html.append(f"<h3>Кандидаты не найдены!</h3>")
+    return "".join(html)
 
 if __name__ == "__main__":
     app.run('127.0.0.1', 8000)
